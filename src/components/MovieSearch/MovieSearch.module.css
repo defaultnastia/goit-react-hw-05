@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.form * {
+  border-radius: 16px;
+}
+
+.form input {
+  width: 280px;
+  border: 2px solid #bdd5ea;
+  padding: 12px;
+}
+
+.form input:focus {
+  border-color: #577399;
+}
+
+.form button {
+  font-weight: 600;
+  font-size: larger;
+  background-color: #bdd5ea;
+  border: 2px solid #bdd5ea;
+  padding: 7px 12px 8px;
+}
+
+.form button:hover {
+  color: #bdd5ea;
+  background-color: #577399;
+  border-color: #577399;
+}

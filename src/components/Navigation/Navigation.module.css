@@ -1,0 +1,26 @@
+.menu {
+  height: 40px;
+  background-color: #bdd5ea;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 20px 40px;
+}
+
+.option {
+  color: #fe5f55;
+  font-weight: 800;
+  font-size: larger;
+  text-transform: uppercase;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  transition-property: background-color color border-color;
+}
+
+.option:hover {
+  background-color: #fe5f55;
+  color: #f7f7ff;
+}

@@ -1,0 +1,26 @@
+.totals {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  font-weight: 600;
+}
+
+.totals * {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 16px;
+}
+
+.totals button {
+  font-weight: 600;
+  background-color: transparent;
+  border: 2px solid #577399;
+  color: #fe5f55;
+}
+
+.totals button:hover {
+  color: #bdd5ea;
+  background-color: #577399;
+}
