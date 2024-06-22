@@ -5,21 +5,46 @@ import MovieList from "../../components/MovieList/MovieList";
 import { fetchMoviesByKey } from "../../service/moviesAPI";
 import Totals from "../../components/Totals/Totals";
 import MovieSearch from "../../components/MovieSearch/MovieSearch";
-import { noMoviesFound } from "../../service/toasts";
+import { useMovieData } from "../../hooks/useMovieData";
+import { useSearchParams } from "react-router-dom";
 
 const emptyStateImg =
   "https://i.pinimg.com/originals/3c/1a/e7/3c1ae797efafc7257699de4234d9f508.png";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [key, setKey] = useState(null);
-  const [page, setPage] = useState(1);
   const [totals, setTotals] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [key, setKey] = useState(searchParams.get("key") || null);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+
+  const fetch = useMovieData({ request: fetchMoviesByKey, key, page });
+
+  useEffect(() => {
+    if (!key) return;
+    fetch().then((data) => {
+      if (!data) return;
+      setMovies(data.moviesData);
+      setTotals(data.totalsData);
+    });
+  }, [key, page]);
+
+  useEffect(() => {
+    console.log();
+    page > 1 &&
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        page: page,
+      });
+  }, [page]);
 
   const handleSearchForm = (searchValue) => {
     setPage(1);
     setMovies({});
     setTotals({});
+    setSearchParams({
+      key: searchValue,
+    });
     setKey(searchValue);
   };
 
@@ -30,38 +55,6 @@ const MoviesPage = () => {
   const handlePreviousButton = () => {
     page > 1 && setPage((prev) => (prev -= 1));
   };
-
-  useEffect(() => {
-    if (!key) return;
-    const getMovies = async () => {
-      try {
-        const { results, total_pages, total_results } = await fetchMoviesByKey(
-          key,
-          page
-        );
-        if (!total_results) {
-          noMoviesFound(key);
-          return;
-        }
-        setMovies(
-          results.map((movie) => ({
-            title: movie.original_title,
-            id: movie.id,
-            release: movie.release_date.slice(0, 4),
-            backdrop: movie.backdrop_path,
-            poster: movie.poster_path,
-            overview: movie.overview,
-            score: movie.vote_average,
-            genres: movie.genre_ids,
-          }))
-        );
-        setTotals({ pages: total_pages, results: total_results });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getMovies();
-  }, [key, page]);
 
   return (
     <div className={css.container}>

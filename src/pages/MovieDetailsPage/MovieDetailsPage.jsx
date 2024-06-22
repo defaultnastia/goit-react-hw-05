@@ -1,41 +1,66 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useParams } from "react-router-dom";
+import { useMovieData } from "../../hooks/useMovieData";
+import { fetchMovieById } from "../../service/moviesAPI";
+import css from "./MovieDetailsPage.module.css";
 
+// #region Poster-Settings
 const tmdbLink = "https://image.tmdb.org/t/p/w500";
 const placeholderLink =
   "https://cringemdb.com/img/movie-poster-placeholder.png";
 
-const getBackdrop = (poster) => {
+const getPoster = (poster) => {
   return poster ? tmdbLink + poster : placeholderLink;
 };
+// #endregion Poster-Settings
 
 const MovieDetailsPage = () => {
+  const [movie, setMovie] = useState({});
+  const [genres, setGenres] = useState("");
+  const { movieId } = useParams();
   const location = useLocation();
 
-  // console.log(location);
+  const { title, origTitle, release, poster, overview, score } = movie;
 
-  const { title, id, release, poster, overview, score, genres } =
-    location.state;
+  const setGenresList = (genres) => {
+    setGenres(genres.map((genre) => genre.name).join(", "));
+  };
+
+  const fetch = useMovieData({ request: fetchMovieById, id: movieId });
+
+  useEffect(() => {
+    fetch().then((data) => {
+      if (!data) return;
+      setMovie(data.moviesData[0]);
+      setGenresList(data.moviesData[0].genreIds);
+    });
+  }, []);
 
   return (
-    <>
-      <NavLink>Go Back</NavLink>
-      <div>
-        <img src={getBackdrop(poster)} alt={title} />
+    <div className={css.pageBox}>
+      <NavLink to={location.state || "/movies"} className={css.back}>
+        Go Back
+      </NavLink>
+      <div className={css.details}>
+        <img src={getPoster(poster)} alt={title} />
         <div>
-          <h2>{title}</h2>
+          <h2>
+            {title} ({release})
+          </h2>
+          <p>Original title: &ldquo;{origTitle}&ldquo;</p>
           <p>Rating: {score}/10</p>
           <h3>Overview</h3>
-          <p>{overview}</p>
+          <p>{overview || "No Info"}</p>
           <h3>Genres</h3>
-          <p></p>
-        </div>
-        <div>
-          <p>Additional Information</p>
-          <NavLink>Cast</NavLink>
-          <NavLink>Reviews</NavLink>
+          <p>{genres || "No Info"}</p>
         </div>
       </div>
-    </>
+      <div>
+        <p>Additional Information</p>
+        <NavLink>Cast</NavLink>
+        <NavLink>Reviews</NavLink>
+      </div>
+    </div>
   );
 };
 

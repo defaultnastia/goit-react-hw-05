@@ -6,17 +6,22 @@ const MovieSearch = ({ handleSearchForm }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    if (!form.elements.movie.value) {
+    if (!form.elements.movie.value.trim()) {
       keyWordRequired();
       return;
     }
-    handleSearchForm(form.elements.movie.value);
+    handleSearchForm(form.elements.movie.value.trim());
     form.reset();
   };
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
-      <input name="movie" type="text" autoFocus />
+      <input
+        name="movie"
+        type="text"
+        autoFocus
+        placeholder="Enter a movie name"
+      />
       <button type="submit">Search 🔍</button>
     </form>
   );

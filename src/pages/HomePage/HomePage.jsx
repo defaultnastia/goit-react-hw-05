@@ -2,9 +2,19 @@ import css from "./HomePage.module.css";
 import MovieList from "../../components/MovieList/MovieList";
 import { useMovieData } from "../../hooks/useMovieData";
 import { fetchTrendingMovies } from "../../service/moviesAPI";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
-  const movies = useMovieData(fetchTrendingMovies);
+  const fetch = useMovieData({ request: fetchTrendingMovies });
+
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch().then((data) => {
+      if (!data) return;
+      setMovies(data.moviesData);
+    });
+  }, []);
 
   return (
     <div className={css.home}>
