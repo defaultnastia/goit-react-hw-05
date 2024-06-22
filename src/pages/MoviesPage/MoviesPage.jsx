@@ -47,8 +47,12 @@ const MoviesPage = () => {
           results.map((movie) => ({
             title: movie.original_title,
             id: movie.id,
-            release_date: movie.release_date,
+            release: movie.release_date.slice(0, 4),
             backdrop: movie.backdrop_path,
+            poster: movie.poster_path,
+            overview: movie.overview,
+            score: movie.vote_average,
+            genres: movie.genre_ids,
           }))
         );
         setTotals({ pages: total_pages, results: total_results });

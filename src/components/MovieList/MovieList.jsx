@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import css from "./MovieList.module.css";
 
 const tmdbLink = "https://image.tmdb.org/t/p/w500";
@@ -18,12 +18,16 @@ const MovieList = ({ movies }) => {
           key={movie.id}
           style={{ backgroundImage: `url(${getBackdrop(movie)})` }}
         >
-          <NavLink to={`/movies/${movie.id}`} className={css.backdrop}>
+          <Link
+            to={`/movies/${movie.id}`}
+            state={movie}
+            className={css.backdrop}
+          >
             <div className={css.caption}>
               <p className={css.title}>{movie.title}</p>
-              <p className={css.year}>{movie.release_date.slice(0, 4)}</p>
+              <p className={css.year}>{movie.release}</p>
             </div>
-          </NavLink>
+          </Link>
         </li>
       ))}
     </ul>

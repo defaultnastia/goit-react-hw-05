@@ -1,29 +1,10 @@
-import { useEffect, useState } from "react";
 import css from "./HomePage.module.css";
-import { fetchTrendingMovies } from "../../service/moviesAPI";
 import MovieList from "../../components/MovieList/MovieList";
+import { useMovieData } from "../../hooks/useMovieData";
+import { fetchTrendingMovies } from "../../service/moviesAPI";
 
 const HomePage = () => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const getMovies = async () => {
-      try {
-        const { results } = await fetchTrendingMovies();
-        setMovies(
-          results.map((movie) => ({
-            title: movie.original_title,
-            id: movie.id,
-            release_date: movie.release_date,
-            backdrop: movie.backdrop_path,
-          }))
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getMovies();
-  }, []);
+  const movies = useMovieData(fetchTrendingMovies);
 
   return (
     <div className={css.home}>
