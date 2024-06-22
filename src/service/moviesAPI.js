@@ -15,10 +15,20 @@ export const fetchTrendingMovies = async () => {
   return result.data;
 };
 
-export const fetchMoviesByKey = async (key, page) => {
+export const fetchMoviesByKey = async ({ key, page }) => {
   const result = await moviesDBInstance.get(
     `/search/movie?query=${key}&include_adult=false&language=en-US&page=${page}`
   );
 
+  return result.data;
+};
+
+export const fetchMovieById = async ({ id }) => {
+  const result = await moviesDBInstance.get(`/movie/${id}`);
+  return { results: [result.data], total_results: 1 };
+};
+
+export const getGenres = async () => {
+  const result = await moviesDBInstance.get("/genre/movie/list");
   return result.data;
 };

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import css from "./MovieList.module.css";
 
 const tmdbLink = "https://image.tmdb.org/t/p/w500";
@@ -10,6 +10,8 @@ const getBackdrop = (obj) => {
 };
 
 const MovieList = ({ movies }) => {
+  const location = useLocation();
+
   return (
     <ul className={css.list}>
       {movies.map((movie) => (
@@ -20,7 +22,7 @@ const MovieList = ({ movies }) => {
         >
           <Link
             to={`/movies/${movie.id}`}
-            state={movie}
+            state={location}
             className={css.backdrop}
           >
             <div className={css.caption}>

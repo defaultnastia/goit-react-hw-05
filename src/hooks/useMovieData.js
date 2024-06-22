@@ -1,23 +1,28 @@
 // import { useEffect, useState } from "react";
 import { noMoviesFound } from "../service/toasts";
 
-export const useMovieData = async (request) => {
+export const useMovieData = ({ request, key, page, id }) => {
   const getMovies = async () => {
     try {
-      const { results, total_pages, total_results } = await request();
+      const { results, total_pages, total_results } = await request({
+        key,
+        page,
+        id,
+      });
       if (!total_results) {
-        noMoviesFound();
+        noMoviesFound(key);
         return;
       }
       const moviesData = results.map((movie) => ({
-        title: movie.original_title,
+        title: movie.title,
+        origTitle: movie.original_title,
         id: movie.id,
         release: movie.release_date.slice(0, 4),
         backdrop: movie.backdrop_path,
         poster: movie.poster_path,
         overview: movie.overview,
         score: movie.vote_average,
-        genres: movie.genre_ids,
+        genreIds: movie.genre_ids,
       }));
 
       const totalsData = { pages: total_pages, results: total_results };
@@ -28,5 +33,5 @@ export const useMovieData = async (request) => {
     }
   };
 
-  return await getMovies();
+  return getMovies;
 };

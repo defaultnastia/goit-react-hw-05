@@ -1,0 +1,45 @@
+.pageBox {
+  padding: 20px;
+}
+
+.back {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.details img {
+  width: 30%;
+  max-width: 400px;
+  object-fit: cover;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid #bdd5ea;
+}
+
+.details h2,
+.details h3 {
+  width: fit-content;
+  padding: 4px 12px;
+  border: 2px solid #bdd5ea;
+  border-radius: 16px;
+}
+
+.details div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details h3 {
+  margin-top: 20px;
+}
+
+.details p {
+  padding-left: 12px;
+}

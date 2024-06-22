@@ -16,25 +16,26 @@ const MoviesPage = () => {
   const [page, setPage] = useState(1);
   const [totals, setTotals] = useState({});
 
-  const fetch = useMovieData(() => fetchMoviesByKey(key, page));
+  const fetch = useMovieData({ request: fetchMoviesByKey, key, page });
 
   useEffect(() => {
-    const { moviesData, totalsData } = (async () => await fetch)();
-    console.log(moviesData, totalsData);
-    // setMovies(movies);
-    // setTotals(totals);
+    if (!key) return;
+    fetch().then((data) => {
+      if (!data) return;
+      setMovies(data.moviesData);
+      setTotals(data.totalsData);
+    });
   }, [key, page]);
-
-  // setMovies({});
-  // setTotals({});
 
   const handleSearchForm = (searchValue) => {
     setPage(1);
+    setMovies({});
+    setTotals({});
     setKey(searchValue);
   };
 
   const handleNextButton = () => {
-    totals.totals.pages > page && setPage((prev) => prev + 1);
+    totals.pages > page && setPage((prev) => prev + 1);
   };
 
   const handlePreviousButton = () => {
@@ -43,22 +44,20 @@ const MoviesPage = () => {
 
   return (
     <div className={css.container}>
-      {/* <MovieSearch handleSearchForm={handleSearchForm} /> */}
-      {/* {!!totals.totals.results && (
+      <MovieSearch handleSearchForm={handleSearchForm} />
+      {!!totals.results && (
         <Totals
-          {...totals.totals}
+          {...totals}
           handleNextButton={handleNextButton}
           handlePreviousButton={handlePreviousButton}
           page={page}
         />
       )}
-      {!!movies.movies.length && <MovieList movies={movies.movies} />}
-      {!movies.movies.length && (
-        <img className={css.emptyState} src={emptyStateImg} />
-      )}
+      {!!movies.length && <MovieList movies={movies} />}
+      {!movies.length && <img className={css.emptyState} src={emptyStateImg} />}
       <div>
         <Toaster position="top-right" />
-      </div> */}
+      </div>
     </div>
   );
 };
