@@ -6,15 +6,17 @@ import { fetchMoviesByKey } from "../../service/moviesAPI";
 import Totals from "../../components/Totals/Totals";
 import MovieSearch from "../../components/MovieSearch/MovieSearch";
 import { useMovieData } from "../../hooks/useMovieData";
+import { useSearchParams } from "react-router-dom";
 
 const emptyStateImg =
   "https://i.pinimg.com/originals/3c/1a/e7/3c1ae797efafc7257699de4234d9f508.png";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [key, setKey] = useState(null);
-  const [page, setPage] = useState(1);
   const [totals, setTotals] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [key, setKey] = useState(searchParams.get("key") || null);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
 
   const fetch = useMovieData({ request: fetchMoviesByKey, key, page });
 
@@ -27,10 +29,22 @@ const MoviesPage = () => {
     });
   }, [key, page]);
 
+  useEffect(() => {
+    console.log();
+    page > 1 &&
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        page: page,
+      });
+  }, [page]);
+
   const handleSearchForm = (searchValue) => {
     setPage(1);
     setMovies({});
     setTotals({});
+    setSearchParams({
+      key: searchValue,
+    });
     setKey(searchValue);
   };
 

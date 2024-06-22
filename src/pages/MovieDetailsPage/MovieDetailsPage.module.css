@@ -3,8 +3,20 @@
 }
 
 .back {
+  width: fit-content;
   display: block;
   margin-bottom: 20px;
+  padding: 4px 8px;
+  font-weight: 600;
+  border-radius: 16px;
+  border: 2px solid #577399;
+  background-color: transparent;
+  color: #fe5f55;
+}
+
+.back:hover {
+  color: #bdd5ea;
+  background-color: #577399;
 }
 
 .details {
@@ -14,7 +26,7 @@
 }
 
 .details img {
-  width: 30%;
+  flex-grow: 1;
   max-width: 400px;
   object-fit: cover;
   border-radius: 16px;
@@ -31,6 +43,7 @@
 }
 
 .details div {
+  max-width: 65%;
   display: flex;
   flex-direction: column;
   gap: 12px;

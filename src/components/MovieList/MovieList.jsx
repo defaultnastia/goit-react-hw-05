@@ -6,7 +6,9 @@ const placeholderLink =
   "https://cringemdb.com/img/movie-poster-placeholder.png";
 
 const getBackdrop = (obj) => {
-  return obj.backdrop ? tmdbLink + obj.backdrop : placeholderLink;
+  if (obj.backdrop) return tmdbLink + obj.backdrop;
+  if (obj.poster) return tmdbLink + obj.poster;
+  return placeholderLink;
 };
 
 const MovieList = ({ movies }) => {

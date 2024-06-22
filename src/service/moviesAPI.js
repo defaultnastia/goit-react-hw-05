@@ -27,8 +27,3 @@ export const fetchMovieById = async ({ id }) => {
   const result = await moviesDBInstance.get(`/movie/${id}`);
   return { results: [result.data], total_results: 1 };
 };
-
-export const getGenres = async () => {
-  const result = await moviesDBInstance.get("/genre/movie/list");
-  return result.data;
-};

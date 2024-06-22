@@ -17,12 +17,12 @@ export const useMovieData = ({ request, key, page, id }) => {
         title: movie.title,
         origTitle: movie.original_title,
         id: movie.id,
-        release: movie.release_date.slice(0, 4),
+        release: movie.release_date?.slice(0, 4),
         backdrop: movie.backdrop_path,
         poster: movie.poster_path,
         overview: movie.overview,
         score: movie.vote_average,
-        genreIds: movie.genre_ids,
+        genreIds: movie.genres,
       }));
 
       const totalsData = { pages: total_pages, results: total_results };

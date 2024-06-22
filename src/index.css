@@ -58,7 +58,7 @@ body {
   min-width: 950px;
 }
 
-.active {
+nav .active {
   border-color: #fe5f55;
   transition-property: border;
 }
