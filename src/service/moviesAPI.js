@@ -27,3 +27,13 @@ export const fetchMovieById = async ({ id }) => {
   const result = await moviesDBInstance.get(`/movie/${id}`);
   return { results: [result.data], total_results: 1 };
 };
+
+export const fetchMovieCredits = async (id) => {
+  const result = await moviesDBInstance.get(`/movie/${id}/credits`);
+  return result.data;
+};
+
+export const fetchMovieReviews = async (id) => {
+  const result = await moviesDBInstance.get(`/movie/${id}/reviews`);
+  return result.data;
+};

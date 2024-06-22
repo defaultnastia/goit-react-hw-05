@@ -6,6 +6,7 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
 import MovieCast from "./components/MovieCast/MovieCast";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import { Toaster } from "react-hot-toast";
 
 const App = () => (
   <>
@@ -20,6 +21,7 @@ const App = () => (
         </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
+      <Toaster position="top-right" />
     </div>
   </>
 );

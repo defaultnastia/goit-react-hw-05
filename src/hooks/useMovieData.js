@@ -1,5 +1,5 @@
 // import { useEffect, useState } from "react";
-import { noMoviesFound } from "../service/toasts";
+import { noMoviesFound, oopsToast } from "../service/toasts";
 
 export const useMovieData = ({ request, key, page, id }) => {
   const getMovies = async () => {
@@ -29,7 +29,7 @@ export const useMovieData = ({ request, key, page, id }) => {
 
       return { moviesData, totalsData };
     } catch (error) {
-      console.log(error);
+      oopsToast(error.message);
     }
   };
 

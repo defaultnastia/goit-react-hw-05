@@ -1,26 +1,21 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { useMovieData } from "../../hooks/useMovieData";
 import { fetchMovieById } from "../../service/moviesAPI";
 import css from "./MovieDetailsPage.module.css";
-
-// #region Poster-Settings
-const tmdbLink = "https://image.tmdb.org/t/p/w500";
-const placeholderLink =
-  "https://cringemdb.com/img/movie-poster-placeholder.png";
-
-const getPoster = (poster) => {
-  return poster ? tmdbLink + poster : placeholderLink;
-};
-// #endregion Poster-Settings
+import MovieDetails from "../../components/MovieDetails/MovieDetails";
 
 const MovieDetailsPage = () => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState("");
   const { movieId } = useParams();
   const location = useLocation();
-
-  const { title, origTitle, release, poster, overview, score } = movie;
 
   const setGenresList = (genres) => {
     setGenres(genres.map((genre) => genre.name).join(", "));
@@ -38,27 +33,24 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={css.pageBox}>
-      <NavLink to={location.state || "/movies"} className={css.back}>
+      <Link to={location.state || "/movies"} className={css.back}>
         Go Back
-      </NavLink>
-      <div className={css.details}>
-        <img src={getPoster(poster)} alt={title} />
-        <div>
-          <h2>
-            {title} ({release})
-          </h2>
-          <p>Original title: &ldquo;{origTitle}&ldquo;</p>
-          <p>Rating: {score}/10</p>
-          <h3>Overview</h3>
-          <p>{overview || "No Info"}</p>
-          <h3>Genres</h3>
-          <p>{genres || "No Info"}</p>
-        </div>
-      </div>
-      <div>
-        <p>Additional Information</p>
-        <NavLink>Cast</NavLink>
-        <NavLink>Reviews</NavLink>
+      </Link>
+      <MovieDetails {...movie} genres={genres} />
+      <div className={css.additional}>
+        <ul>
+          <li>
+            <NavLink to="cast" state={location.state}>
+              Cast
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="reviews" state={location.state}>
+              Reviews
+            </NavLink>
+          </li>
+        </ul>
+        <Outlet />
       </div>
     </div>
   );

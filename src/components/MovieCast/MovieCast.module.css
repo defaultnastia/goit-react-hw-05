@@ -1,0 +1,11 @@
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.noCast {
+  text-align: center;
+}

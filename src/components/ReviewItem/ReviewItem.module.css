@@ -1,0 +1,14 @@
+.review {
+  width: fit-content;
+  max-width: 1200px;
+  padding: 8px;
+  border: 2px solid #577399;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.author {
+  font-size: larger;
+  font-weight: 600;
+  color: #fe5f55;
+}

@@ -1,0 +1,42 @@
+.back:hover {
+  color: #bdd5ea;
+  background-color: #577399;
+}
+
+.details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.details img {
+  flex-grow: 1;
+  max-width: 360px;
+  object-fit: cover;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid #bdd5ea;
+}
+
+.details h2,
+.details h3 {
+  width: fit-content;
+  padding: 4px 12px;
+  border: 2px solid #bdd5ea;
+  border-radius: 16px;
+}
+
+.details div {
+  max-width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details h3 {
+  margin-top: 40px;
+}
+
+.details p {
+  padding-left: 12px;
+}

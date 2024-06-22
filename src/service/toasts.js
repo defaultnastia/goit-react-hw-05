@@ -21,3 +21,14 @@ export const noMoviesFound = (keyword) => {
     icon: "🎬",
   });
 };
+
+export const oopsToast = (error) => {
+  toast(`Oops! Error happened: ${error}`, {
+    style: {
+      border: "1px solid #FE5F55",
+      padding: "8px",
+      color: "#FE5F55",
+    },
+    icon: "🙊",
+  });
+};

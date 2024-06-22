@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import css from "./MoviesPage.module.css";
-import { Toaster } from "react-hot-toast";
 import MovieList from "../../components/MovieList/MovieList";
 import { fetchMoviesByKey } from "../../service/moviesAPI";
 import Totals from "../../components/Totals/Totals";
@@ -69,9 +68,6 @@ const MoviesPage = () => {
       )}
       {!!movies.length && <MovieList movies={movies} />}
       {!movies.length && <img className={css.emptyState} src={emptyStateImg} />}
-      <div>
-        <Toaster position="top-right" />
-      </div>
     </div>
   );
 };
