@@ -32,7 +32,7 @@ const HomePage = () => {
       <h1 className={css.title}>
         Today <span>🔥Trending🔥</span> movies
       </h1>
-      {movies.length && <MovieList movies={movies} />}
+      {!!movies.length && <MovieList movies={movies} />}
       {loader && <HashLoader cssOverride={override} color={"#FE5F55"} />}
     </div>
   );

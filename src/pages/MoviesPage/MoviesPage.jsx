@@ -50,7 +50,6 @@ const MoviesPage = () => {
   }, [key, page]);
 
   useEffect(() => {
-    console.log();
     page > 1 &&
       setSearchParams({
         ...Object.fromEntries(searchParams.entries()),
