@@ -1,9 +1,10 @@
 // import { useEffect, useState } from "react";
 import { noMoviesFound, oopsToast } from "../service/toasts";
 
-export const useMovieData = ({ request, key, page, id }) => {
+export const useMovieData = ({ request, key, page, id, handleLoader }) => {
   const getMovies = async () => {
     try {
+      if (handleLoader) handleLoader(true);
       const { results, total_pages, total_results } = await request({
         key,
         page,
@@ -30,6 +31,8 @@ export const useMovieData = ({ request, key, page, id }) => {
       return { moviesData, totalsData };
     } catch (error) {
       oopsToast(error.message);
+    } finally {
+      if (handleLoader) handleLoader(false);
     }
   };
 

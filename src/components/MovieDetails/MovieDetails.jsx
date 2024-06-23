@@ -4,7 +4,6 @@ import css from "./MovieDetails.module.css";
 const tmdbLink = "https://image.tmdb.org/t/p/w500";
 const placeholderLink =
   "https://cringemdb.com/img/movie-poster-placeholder.png";
-
 const getPoster = (poster) => {
   return poster ? tmdbLink + poster : placeholderLink;
 };

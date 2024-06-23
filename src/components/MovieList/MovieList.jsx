@@ -1,15 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import css from "./MovieList.module.css";
 
+// #region Backdrop-Settings
 const tmdbLink = "https://image.tmdb.org/t/p/w500";
 const placeholderLink =
   "https://cringemdb.com/img/movie-poster-placeholder.png";
-
 const getBackdrop = (obj) => {
   if (obj.backdrop) return tmdbLink + obj.backdrop;
   if (obj.poster) return tmdbLink + obj.poster;
   return placeholderLink;
 };
+// #endregion Backdrop-Settings
 
 const MovieList = ({ movies }) => {
   const location = useLocation();

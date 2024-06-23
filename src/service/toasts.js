@@ -32,3 +32,14 @@ export const oopsToast = (error) => {
     icon: "🙊",
   });
 };
+
+export const sameSearchToast = (keyword) => {
+  toast(`Search results for "${keyword}" are already shown!`, {
+    style: {
+      border: "1px solid #FE5F55",
+      padding: "8px",
+      color: "#FE5F55",
+    },
+    icon: "🚔",
+  });
+};

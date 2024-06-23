@@ -1,11 +1,22 @@
-import css from "./HomePage.module.css";
+import { useEffect, useState } from "react";
+import { HashLoader } from "react-spinners";
 import MovieList from "../../components/MovieList/MovieList";
+import css from "./HomePage.module.css";
 import { useMovieData } from "../../hooks/useMovieData";
 import { fetchTrendingMovies } from "../../service/moviesAPI";
-import { useEffect, useState } from "react";
+
+//Loader Settings
+const override = {
+  display: "block",
+  margin: "200px auto",
+};
 
 const HomePage = () => {
-  const fetch = useMovieData({ request: fetchTrendingMovies });
+  const [loader, setLoader] = useState(false);
+  const handleLoader = (toggle) => {
+    setLoader(toggle);
+  };
+  const fetch = useMovieData({ request: fetchTrendingMovies, handleLoader });
 
   const [movies, setMovies] = useState([]);
 
@@ -21,7 +32,8 @@ const HomePage = () => {
       <h1 className={css.title}>
         Today <span>🔥Trending🔥</span> movies
       </h1>
-      <MovieList movies={movies} />
+      {movies.length && <MovieList movies={movies} />}
+      {loader && <HashLoader cssOverride={override} color={"#FE5F55"} />}
     </div>
   );
 };

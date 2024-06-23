@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMovieCredits } from "../../service/moviesAPI";
+
 import CastMember from "../CastMember/CastMember";
 import css from "./MovieCast.module.css";
 import { oopsToast } from "../../service/toasts";
+import { fetchMovieCredits } from "../../service/moviesAPI";
 
 const MovieCast = () => {
   const { movieId } = useParams();

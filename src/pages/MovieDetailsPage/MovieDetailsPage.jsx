@@ -6,10 +6,10 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
+import MovieDetails from "../../components/MovieDetails/MovieDetails";
+import css from "./MovieDetailsPage.module.css";
 import { useMovieData } from "../../hooks/useMovieData";
 import { fetchMovieById } from "../../service/moviesAPI";
-import css from "./MovieDetailsPage.module.css";
-import MovieDetails from "../../components/MovieDetails/MovieDetails";
 
 const MovieDetailsPage = () => {
   const [movie, setMovie] = useState({});

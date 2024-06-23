@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
-import css from "./MoviesPage.module.css";
-import MovieList from "../../components/MovieList/MovieList";
-import { fetchMoviesByKey } from "../../service/moviesAPI";
-import Totals from "../../components/Totals/Totals";
-import MovieSearch from "../../components/MovieSearch/MovieSearch";
-import { useMovieData } from "../../hooks/useMovieData";
+import { HashLoader } from "react-spinners";
 import { useSearchParams } from "react-router-dom";
+
+import MovieSearch from "../../components/MovieSearch/MovieSearch";
+import MovieList from "../../components/MovieList/MovieList";
+import Totals from "../../components/Totals/Totals";
+
+import css from "./MoviesPage.module.css";
+
+import { fetchMoviesByKey } from "../../service/moviesAPI";
+import { sameSearchToast } from "../../service/toasts";
+import { useMovieData } from "../../hooks/useMovieData";
 
 const emptyStateImg =
   "https://i.pinimg.com/originals/3c/1a/e7/3c1ae797efafc7257699de4234d9f508.png";
+
+//Loader Settings
+const override = {
+  display: "block",
+  margin: "200px auto",
+};
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
@@ -16,8 +27,18 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [key, setKey] = useState(searchParams.get("key") || null);
   const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+  const [loader, setLoader] = useState(false);
 
-  const fetch = useMovieData({ request: fetchMoviesByKey, key, page });
+  const handleLoader = (toggle) => {
+    setLoader(toggle);
+  };
+
+  const fetch = useMovieData({
+    request: fetchMoviesByKey,
+    key,
+    page,
+    handleLoader,
+  });
 
   useEffect(() => {
     if (!key) return;
@@ -38,6 +59,10 @@ const MoviesPage = () => {
   }, [page]);
 
   const handleSearchForm = (searchValue) => {
+    if (searchValue === key) {
+      sameSearchToast(searchValue);
+      return;
+    }
     setPage(1);
     setMovies({});
     setTotals({});
@@ -67,7 +92,10 @@ const MoviesPage = () => {
         />
       )}
       {!!movies.length && <MovieList movies={movies} />}
-      {!movies.length && <img className={css.emptyState} src={emptyStateImg} />}
+      {!movies.length && !loader && (
+        <img className={css.emptyState} src={emptyStateImg} />
+      )}
+      {loader && <HashLoader cssOverride={override} color={"#FE5F55"} />}
     </div>
   );
 };

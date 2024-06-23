@@ -1,5 +1,4 @@
 import { keyWordRequired } from "../../service/toasts";
-
 import css from "./MovieSearch.module.css";
 
 const MovieSearch = ({ handleSearchForm }) => {

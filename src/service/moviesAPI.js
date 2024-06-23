@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// Instance Settings
+
 const bearerToken =
   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZmUwYTA5YThiNDM5Y2YyMjZlODkzYTQzMWQ4YjcyMCIsInN1YiI6IjY2NzU3NmU4Y2NmNzVkZTIzNjI5MDIzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.itPyt07SUyiYRwcadOu3yK2ezMV9RPNB-YSDWLZxgLE";
 
@@ -7,6 +9,8 @@ const moviesDBInstance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   headers: { accept: "application/json", Authorization: bearerToken },
 });
+
+// Exports
 
 export const fetchTrendingMovies = async () => {
   const result = await moviesDBInstance.get(
