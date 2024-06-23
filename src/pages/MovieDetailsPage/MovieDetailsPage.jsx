@@ -44,7 +44,7 @@ const MovieDetailsPage = () => {
       setMovie(data.moviesData[0]);
       setGenresList(data.moviesData[0].genreIds);
     });
-  }, []);
+  }, [movieId]);
 
   return (
     <div className={css.pageBox}>

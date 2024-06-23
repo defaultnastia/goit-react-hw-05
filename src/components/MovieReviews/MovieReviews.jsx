@@ -20,7 +20,7 @@ const MovieReviews = () => {
       }
     };
     fetchCast();
-  }, []);
+  }, [movieId]);
 
   return (
     <>
