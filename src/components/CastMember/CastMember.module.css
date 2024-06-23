@@ -1,10 +1,12 @@
 .member {
   width: 180px;
-  height: 240px;
+  height: 248px;
   padding: 8px;
   border: 2px solid #577399;
   border-radius: 12px;
   text-align: center;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .photo {

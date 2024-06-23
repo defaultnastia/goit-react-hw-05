@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import {
   Link,
   NavLink,
@@ -16,6 +16,11 @@ import { HashLoader } from "react-spinners";
 const override = {
   display: "block",
   margin: "200px auto",
+};
+
+const overrideOutlet = {
+  display: "block",
+  margin: "50px auto",
 };
 
 const MovieDetailsPage = () => {
@@ -66,7 +71,16 @@ const MovieDetailsPage = () => {
             </NavLink>
           </li>
         </ul>
-        <Outlet />
+        <Suspense
+          fallback={
+            <HashLoader
+              cssOverride={overrideOutlet}
+              color={"#FE5F55"}
+            ></HashLoader>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );
