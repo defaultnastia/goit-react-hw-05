@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import {
   Link,
   NavLink,
@@ -27,7 +27,10 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState("");
   const { movieId } = useParams();
+
   const location = useLocation();
+  const backRef = useRef(location.state || "/movies");
+
   const [loader, setLoader] = useState(false);
   const handleLoader = (toggle) => {
     setLoader(toggle);
@@ -53,7 +56,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={css.pageBox}>
-      <Link to={location.state || "/movies"} className={css.back}>
+      <Link to={backRef.current} className={css.back}>
         Go Back
       </Link>
       {!!movie.title && <MovieDetails {...movie} genres={genres} />}
